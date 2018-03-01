@@ -1,3 +1,5 @@
+const nodeExternals = require('webpack-node-externals');
+
 module.exports = {
   entry: [
     './src/server.jsx',
@@ -11,9 +13,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  externals: {
-    express: 'express',
-  },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {

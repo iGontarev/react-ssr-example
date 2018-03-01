@@ -3,7 +3,9 @@ import path from 'path';
 import fs from 'fs';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { App } from './shared/App';
+import { StaticRouter } from 'react-router-dom';
+
+import { App } from './shared/app';
 
 const app = express();
 
@@ -22,7 +24,11 @@ function getFileContent(fileName) {
 const template = getFileContent('build/index.html');
 
 app.get('*', (req, res) => {
-  const body = renderToString(<App />);
+  const body = renderToString((
+    <StaticRouter location={req.url}>
+      <App />
+    </StaticRouter>
+  ));
 
   res.send(template.replace('<!--APP-->', `${body}`));
 });
